@@ -1,0 +1,16 @@
+Bootstrap: docker
+From: staphb/iqtree2:2.1.2
+
+%post
+    apt-get update && apt-get install -y \
+    parallel \
+    && apt-get clean
+
+%environment
+    export PATH=/usr/local/bin/:$PATH
+
+%labels
+    Author Judit Talas
+    Version 1.0
+    Description "Singularity container for iqtree2 with parallel support"
+
