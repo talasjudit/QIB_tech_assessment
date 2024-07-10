@@ -9,7 +9,33 @@ Generate an upload table in CSV format from paired-end read files for a read sto
 * FileReverse - The path to the reverse read file (e.g., path/to/sample1_R2.fastq)
 
 ## Directory Structure
-- `001.csv_question/`: Contains input paired-end read files.
+- `config/` : Contains config file where inputs can be changed (e.g. Project ID)
 - `scripts/`: Contains the script to generate the upload table.
 - `output/`: Contains the generated CSV file.
 - `logs/`: Contains log files for the process.
+
+## Instructions to reproduce upload table
+
+**1. Navigate to starting directory**
+Assuming you are starting from parent directory QIB_TECH_ASSESSMENT, navigate to ```bash-1``` subdirectory
+
+ ```
+ cd bash-1
+ ```
+
+**2. Extract fastq files**
+
+```
+tar -xvzf 001.csv.question.txz
+```
+
+**3. From here you can execute scripts within scripts/ directory**
+
+```
+scripts/rename_reads.sh
+scripts/generate_upload_table.sh
+```
+
+**4. After each step, check corresponding log files in log/ subdirectory**
+
+**5. Output .csv file is located in outputs/ subdirectory**
