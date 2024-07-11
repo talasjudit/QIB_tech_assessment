@@ -62,9 +62,5 @@ export LOG_DIR
 export OUTPUT_DIR
 export SINGULARITY_FILE
 
-# Iterate through all alignment files sequentially
-for aln_file in "$ALIGNMENT_DIR"/*.aln; do
-    if [[ -f "$aln_file" ]]; then
-        run_iqtree "$aln_file"
-    fi
-done
+# Run iqtree2 on all alignment files in parallel, even if the terminal is closed
+nohup bash -c "find '$ALIGNMENT_DIR' -name '*.aln' | parallel -j '$(nproc)' run_iqtree" > iqtree2_run.log 2>&1 &
