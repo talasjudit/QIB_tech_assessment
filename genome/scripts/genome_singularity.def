@@ -1,16 +1,25 @@
-BootStrap: docker
+Bootstrap: docker
 From: ncbi/blast:latest
 
 %post
     # Install necessary dependencies
-    apt-get update && apt-get install -y minimap2 parallel wget tar gcc g++ make rsync seqtk
-
-    # Install Kraken2
-    KRAKEN2_VERSION="2.1.2"
-    wget https://github.com/DerrickWood/kraken2/archive/v${KRAKEN2_VERSION}.tar.gz -O /tmp/kraken2.tar.gz
-    tar -xzvf /tmp/kraken2.tar.gz -C /tmp
-    cd /tmp/kraken2-${KRAKEN2_VERSION} && ./install_kraken2.sh /usr/local/bin
-    rm -rf /tmp/kraken2*
+    apt-get update && apt-get install -y \
+        minimap2 \
+        parallel \
+        wget \
+        tar \
+        gcc \
+        g++ \
+        make \
+        rsync \
+        seqtk \
+        perl \
+        curl \
+        bzip2 \
+        xz-utils
 
 %environment
     export PATH=/usr/local/ncbi/blast/bin:/usr/local/bin:$PATH
+    
+%runscript
+    exec "$@"
