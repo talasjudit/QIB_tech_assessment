@@ -26,16 +26,25 @@ Assuming you are starting from parent directory QIB_TECH_ASSESSMENT, navigate to
 **2. Extract fastq files**
 
 ```
-tar -xvzf 001.csv.question.txz
+tar -xvf 001.csv.question.txz
 ```
 
 **3. From here you can execute scripts within scripts/ directory**
 
-```
-scripts/rename_reads.sh
-scripts/generate_upload_table.sh
-```
+The first script makes sure that naming conventions are consistent so renames any fastq file with the extension .fq to a .fastq ending
 
-**4. After each step, check corresponding log files in log/ subdirectory**
+```
+./scripts/rename_reads.sh
+```
+The next script generates the upload table according to instructions
 
-**5. Output .csv file is located in outputs/ subdirectory**
+```
+./scripts/generate_upload_table.sh
+```
+After each step, check corresponding log files in log/ subdirectory**
+
+**4. Output .csv file is located in outputs subdirectory**
+
+```
+outputs/upload_table.csv
+```
