@@ -16,4 +16,4 @@ mkdir -p $LOG_DIR
 GENOME_FASTA="$(pwd)/input/genome.fa"
 
 #BLAST database to use
-BLAST_DB="nt"
+BLAST_DB="$(pwd)/input/blastdb

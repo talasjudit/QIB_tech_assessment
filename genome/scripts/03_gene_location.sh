@@ -5,20 +5,17 @@ source config/03_config.sh
 
 # Ensure the output directories exist
 mkdir -p $BLAST_DB_DIR $OUTPUT_DIR $LOG_DIR
-mkdir -p $BLAST_DB_DIR/genome_db
 
-# Check if the script has permissions to write in these directories
-if [ ! -w $BLAST_DB_DIR ] || [ ! -w $OUTPUT_DIR ] || [ ! -w $LOG_DIR ]; then
-    echo "Error: Script does not have write permissions for necessary directories."
-    exit 1
-fi
+# Redirect stdout and stderr to log files
+exec 1>>$LOG_DIR/output.log
+exec 2>>$LOG_DIR/error.log
 
 # Create a BLAST database from the genome file
 singularity exec $SINGULARITY_FILE \
     makeblastdb \
     -in $GENOME_FILE \
     -dbtype nucl \
-    -out $BLAST_DB_DIR/genome_db
+    -out $BLAST_DB_DIR/genomedb/genomedb
 
 # Check if the makeblastdb command was successful
 if [ $? -ne 0 ]; then
@@ -29,8 +26,8 @@ fi
 # Run BLAST for gen1
 singularity exec $SINGULARITY_FILE \
     blastn \
-    -query $GENE1_FILE \
-    -db $BLAST_DB_DIR/genome_db \
+    -query $GENE1 \
+    -db $BLAST_DB_DIR/genomedb/genomedb \
     -out $OUTPUT_DIR/gen1_blast.txt \
     -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"
 
@@ -43,8 +40,8 @@ fi
 # Run BLAST for gen2
 singularity exec $SINGULARITY_FILE \
     blastn \
-    -query $GENE2_FILE \
-    -db $BLAST_DB_DIR/genome_db \
+    -query $GENE2 \
+    -db $BLAST_DB_DIR/genomedb/genomedb \
     -out $OUTPUT_DIR/gen2_blast.txt \
     -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"
 
