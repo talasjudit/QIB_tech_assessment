@@ -3,10 +3,10 @@ From: ncbi/blast:latest
 
 %post
     # Install minimap2
-    apt-get update && apt-get install -y minimap2
+    apt-get update && apt-get install -y minimap2 parallel
 
     # Clean up
     apt-get clean
-
+    
 %environment
     export PATH=/usr/local/ncbi/blast/bin:$PATH
