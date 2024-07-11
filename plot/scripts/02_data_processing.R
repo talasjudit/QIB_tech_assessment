@@ -14,7 +14,9 @@ load_or_install("gtools")
 load_or_install("viridis")
 
 # Set the working directory to the script's location
-script_dir <- dirname(rstudioapi::getSourceEditorContext()$path)
+args <- commandArgs(trailingOnly = FALSE)
+script_path <- sub("--file=", "", args[grep("--file=", args)])
+script_dir <- dirname(script_path)
 setwd(script_dir)
 
 # set and ensure output directory exists
@@ -103,9 +105,8 @@ mock_pie_chart_data <- abundance_taxonomy %>%
 
 # Create and save pie chart for sample "Mock"
 mock_pie_chart <- create_pie_chart("Mock", abundance_taxonomy, taxonomic_level)
-filename <- file.path(output_dir, paste0("Mock_Pie_Chart_", taxonomic_level, ".png"))
+filename <- file.path(output_dir, paste0("Mock_Pie_Chart_", taxonomic_level, ".pdf"))
 ggsave(filename, plot = mock_pie_chart)
-
 
 
 # Remove sample "Mock" and prepare data for stacked bar chart
@@ -132,4 +133,8 @@ stacked_bar_chart <- ggplot(summarised_data, aes(x = Sample, y = Total_Count, fi
        subtitle = paste("Grouped by", taxonomic_level),
        x = "Sample", y = "Total Count", fill = taxonomic_level) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+filename_bar <- file.path(output_dir, paste0("Stacked_Bar_Chart_", taxonomic_level, ".pdf"))
+ggsave(filename_bar, plot = stacked_bar_chart)
+
 

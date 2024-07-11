@@ -22,7 +22,27 @@ sudo singularity build ./scripts/genome_singularity.sif ./scripts genome_singula
 
 These prerequisites are also assumed for Q2 and Q3.
 
-**2.  **
+**2. Quick preprocessing to identify database type**
+
+I ran out of time to compile a local BLAST database (the remote search was very slow) but here is what I would have done. Caveat to say I have not debugged the solution scripts to Question 1 (`scripts/01_preprocessing_snippets.sh` and `scripts/01_species_identification.sh`).
+
+It is very time consuming to run a BLAST search on the whole genome without any context. To get context I decided to randomly sample my genome to get 10 x 500bp queries and run this against my database.
+
+Execute preprocessing script 
+
+```
+./scripts/01_preprocessing_snippets.sh
+```
+This resulted in identifying that my genome is likely Campylobacter.
+
+**3. Optional - Double check result**
+
+(I ran out of time to run this too but I have written an untested script to show the logic of analysis located in ```scripts/01_species_identification.sh``` so it might have bugs if you decide to run it.)
+
+It would still be time consuming to BLAST my full genome so I decided to break it down into manageable chunks and this also means it can now be run in parallel. The species identification script aims to:
+1. Split the genome into 50000bp chunks
+2. Run blast on these chunks in parallel on my local BLAST database.
+3. Save output and log files in `logs` and `output` directories.
 
 
 ## Q2. Repeat Analysis
@@ -38,7 +58,7 @@ Execute the repeats analysis script:
 ```
 This will:
 1. Run minimap2 to map `genome.fa` against itself
-2. Parse the output file to identidy repeats and calculate their lenghts
+2. Parse the output file to identify repeats and calculate their lenghts
 3. Calculate the longest repeat
 4. Count the number of repeats between 6 and 7kb in length.
 
@@ -51,7 +71,7 @@ Results are located in `output/02_repeat_analysis` and contain the self mapping 
 
 Find the location (start and end positions) of the two genes, `gen1` and `gen2`, in the `genome.fa` file.
 
-**1. Execute rgene location script**
+**1. Execute gene location script**
 
 Execute the gene location analysis script:
 
