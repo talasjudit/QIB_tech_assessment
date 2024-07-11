@@ -18,4 +18,4 @@ GENE1="$(pwd)/input/gen1.fa"
 GENE2="$(pwd)/input/gen2.fa"
 
 # Path to BLAST database directory
-BLAST_DB="$(pwd)/input/blastdb"
+BLAST_DB_DIR="$(pwd)/input/blastdb"

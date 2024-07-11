@@ -17,15 +17,3 @@ GENOME_FASTA="$(pwd)/input/genome.fa"
 
 #BLAST database to use
 BLAST_DB="nt"
-
-# Environment file
-ENV_FILE="$(pwd)/scripts/env.list"
-
-# Create the environment file
-cat <<EOL > $ENV_FILE
-INPUT_DIR=$INPUT_DIR
-LOG_DIR=$LOG_DIR
-OUTPUT_DIR=$OUTPUT_DIR
-BLAST_DB=$BLAST_DB
-GENOME_FASTA=$GENOME_FASTA
-EOL
