@@ -1,21 +1,30 @@
 # IQ-tree
 
-You are provided with a set of alignments in fasta format, 
-each alignment is a multiple sequence alignment (MSA) of a
-gene with file name ending in ".aln". 
+**1. Navigate to starting directory**
 
-You want to run a program called iqtree2 on each alignment file and store
-the generated tree into a file with same name as the alignment file but with ".treefile" extension. 
+Assuming you are starting from parent directory QIB_TECH_ASSESSMENT, navigate to ```bash-2``` subdirectory
 
-This can be accomplished with option "--prefix <prefix>" where <prefix> is the name of the alignment file without the ".aln". For
-example, for a file named "gene1.aln", the command you want to run is:
+**2. Download singularity and compile container**
 
+Make sure singularity is downloaded on your system and compile the singularity definition file:
 ```
-iqtree2 -s gene1.aln --prefix gene1 -m HKY+G
+sudo singularity build ./scripts/iqtree_singularity.sif ./scripts/iqtree_singularity.def
 ```
 
-Your task is to write a shell script or command that will take all alignment files in directory `002.iqtree_question` and run
-iqtree2 as above on each, preferentially in parallel, with stdio/stderr redirection, and running even after the terminal
-session is closed.
-The objective is for us to see the script or command, and not the tree files. If you cannot access the directory please
-explain why, and write a general script that works with all alignment files ending in ".aln" in the current directory.
+**3. Extract necessary files**
+
+```
+tar -xvf 002.iqtree_question.txz
+```
+
+**4. Run IQ-tree in the background**
+
+```
+./scripts/run_iqtree.sh
+```
+
+**5. Retrieve results**
+
+Check results:
+- `output/` : contains output files
+- `logs/` : contains stdout and stderr log files
