@@ -24,7 +24,7 @@ These prerequisites are also assumed for Q2 and Q3.
 
 **2. Quick preprocessing to identify database type**
 
-I ran out of time to compile a local BLAST database (the remote search was very slow) but here is what I would have done. Caveat to say I have not debugged the solution scripts to Question 1 (`scripts/01_preprocessing_snippets.sh` and `scripts/01_species_identification.sh`).
+I ran out of time to compile a local BLAST database (the remote search was very slow) but here is what I would have done. Caveat to say I have not debugged the solution scripts to Question 1 (`scripts/01_preprocessing_snippets.sh` and `scripts/01_species_identification.sh`). I included the results from the first halfof my preprocessing script to show the snippets it extracted.
 
 It is very time consuming to run a BLAST search on the whole genome without any context. To get context I decided to randomly sample my genome to get 10 x 500bp queries and run this against my database.
 

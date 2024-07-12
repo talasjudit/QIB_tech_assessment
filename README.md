@@ -14,3 +14,7 @@ We will review your code and try to execute it using your instructions.
 2. Quality of the produced code: readability, scalability, reproducibility, comments
 3. Experience in bioinformatics tasks: ability to adopt good practices
 4. You can create a private GitHub repository and invite @telatin for the review. This step is optional but welcome.
+
+## Instructions for review
+
+Please find the specific instructions in the README.md files within each subdirectory. Thanks!
