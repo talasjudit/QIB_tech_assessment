@@ -2,7 +2,7 @@
 
 You are given an unknown genome of a real organism `genome.fa` and two genes: `gen1.fa` and `gen2.fa`
 
-Caveats tp my answers to Q1: I ran out of time to compile a local BLAST database (the remote search was very slow) but here is what I would have done. I have not debugged the solution scripts to Question 1 (`scripts/01_preprocessing_snippets.sh` and `scripts/01_species_identification.sh`). I included the results from the first halfof my preprocessing script to show the snippets it extracted.
+Caveats to my answers to Q1: I ran out of time to compile a local BLAST database (the remote search was very slow) but here is what I would have done. I have not debugged the solution scripts to Question 1 (`scripts/01_preprocessing_snippets.sh` and `scripts/01_species_identification.sh`). I included the results from the first halfof my preprocessing script to show the snippets it extracted.
 
 Please skip to Q2 and Q3 for verified scripts and solutions.
 
