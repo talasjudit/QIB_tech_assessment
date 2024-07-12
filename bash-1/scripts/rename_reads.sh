@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Load the configuration
-source $(dirname $0)/../config/config.sh
+source config/config.sh
 
 # Log file
 LOG_FILE="${LOG_DIR}/rename.log"
