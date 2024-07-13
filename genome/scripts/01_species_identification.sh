@@ -31,17 +31,35 @@ run_blast() {
 export -f run_blast
 export SINGULARITY_FILE BLAST_DB OUTPUT_DIR LOG_DIR
 
-# Split the genome into 50,000 bp chunks
+# Configuration variables
+chunk_size="50000"
 chunk_prefix="genome_chunk"
-chunk_size=50000 # 50,000 base pairs
 
-# Use split to divide the genome into chunks of approximately 50,000 base pairs
-split -l $chunk_size -d --additional-suffix=.fa $GENOME_FASTA ${INPUT_DIR}/${chunk_prefix}_
+# Read the header
+header=$(head -n 1 "$GENOME_FASTA")
+
+# Concatenate the sequence lines into one continuous string
+sequence=$(tail -n +2 "$GENOME_FASTA" | tr -d '\n')
+
+# Calculate the number of chunks
+sequence_length=${#sequence}
+num_chunks=$((sequence_length / chunk_size + (sequence_length % chunk_size > 0)))
+
+# Split the sequence and save to files
+for ((i=0; i<num_chunks; i++)); do
+    start=$((i * chunk_size))
+    chunk=${sequence:$start:$chunk_size}
+    chunk_file="${INPUT_DIR}/${chunk_prefix}_${i}.fa"
+    echo "$header" > "$chunk_file"
+    echo "$chunk" >> "$chunk_file"
+done
 
 # Run BLAST in parallel on each chunk and create individual log files
 find $INPUT_DIR -name "${chunk_prefix}_*.fa" | parallel \
     --jobs $(nproc) \
     run_blast {} $OUTPUT_DIR/{/.}_blast_results.txt $LOG_DIR/{/.}_blast_log.txt $LOG_DIR/{/.}_blast_error_log.txt
+
+wait
 
 # Combine all results into one file
 cat $OUTPUT_DIR/*_blast_results.txt > $OUTPUT_DIR/blast_results.txt

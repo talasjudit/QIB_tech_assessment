@@ -15,7 +15,7 @@ singularity exec $SINGULARITY_FILE \
     makeblastdb \
     -in $GENOME_FILE \
     -dbtype nucl \
-    -out $BLAST_DB_DIR/genomedb/genomedb
+    -out $BLAST_DB_DIR/genomedb
 
 # Check if the makeblastdb command was successful
 if [ $? -ne 0 ]; then
@@ -27,7 +27,7 @@ fi
 singularity exec $SINGULARITY_FILE \
     blastn \
     -query $GENE1 \
-    -db $BLAST_DB_DIR/genomedb/genomedb \
+    -db $BLAST_DB_DIR/genomedb \
     -out $OUTPUT_DIR/gen1_blast.txt \
     -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"
 
@@ -41,7 +41,7 @@ fi
 singularity exec $SINGULARITY_FILE \
     blastn \
     -query $GENE2 \
-    -db $BLAST_DB_DIR/genomedb/genomedb \
+    -db $BLAST_DB_DIR/genomedb \
     -out $OUTPUT_DIR/gen2_blast.txt \
     -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"
 
