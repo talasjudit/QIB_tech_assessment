@@ -1,6 +1,6 @@
 # Four tasks for the candidate
 
-This directory contains for subdirectories, each one relates to a task assigned for the interview.
+This directory contains four subdirectories, each one relates to a task assigned for the interview.
 
 Each task has a dedicated README.md and one or more input files.
 
